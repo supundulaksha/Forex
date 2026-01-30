@@ -10,6 +10,14 @@ body {
   line-height: 1.1 !important;
 
 }
+.heading-2 {
+  font-size: 1.75rem !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+}
+.card-title {
+  height: 62px;
+}
 .paragraph {
   font-size: 1.125rem !important;
   line-height: 1.6 !important;
@@ -87,11 +95,11 @@ body {
   margin-bottom: 40px;
 }
 
-.token-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
+// .token-grid {
+//   display: grid;
+//   grid-template-columns: repeat(4, 1fr);
+//   gap: 20px;
+// }
 
 .token-card {
   background: #fff;
