@@ -114,6 +114,80 @@ body {
   font-size: 24px;
   font-weight: bold;
 }
+/* FAQ Section */
+.faq {
+  background: #f8fafc; /* light gray background */
+}
+
+/* Heading */
+.faq .heading-1 {
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #0f172a;
+}
+
+/* Accordion container */
+.faq .accordion-item {
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* Accordion button */
+.faq .accordion-button {
+  background: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1.2rem 1.25rem;
+  color: #0f172a;
+  box-shadow: none;
+}
+
+/* Remove default Bootstrap arrow shadow */
+.faq .accordion-button:focus {
+  box-shadow: none;
+}
+
+/* Active accordion */
+.faq .accordion-button:not(.collapsed) {
+  background: #eef2ff;
+  color: #1e40af;
+}
+
+/* Custom arrow color */
+.faq .accordion-button::after {
+  filter: brightness(0.4);
+}
+
+/* Accordion body */
+.faq .accordion-body {
+  background: #ffffff;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 1.2rem 1.25rem;
+}
+
+/* Image styling */
+.faq figure img {
+  max-width: 90%;
+  border-radius: 16px;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .faq .heading-1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .faq figure img {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+}
 
 /* FAQ */
 .faq {
@@ -181,4 +255,54 @@ body {
   .hero-text h1 {
     font-size: 34px;
   }
+}
+.main-header {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #eee;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo img {
+  height: 55px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.nav-menu a {
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  color: #444;
+}
+
+.nav-menu a.active,
+.nav-menu a:hover {
+  color: linear-gradient(135deg, #f6b21a, #ffd56a);
+}
+.main-footer {
+  background: #222;
+}
+.footer-content {
+  color: #fff;
 }

@@ -1,67 +1,85 @@
-<div>
-  <div style="padding-top: 50px; text-align: center;" >
-    <img class="mainImage" src="assets\uploads\abc.png">
-    <div class="title-1">Welcome to abc_restaurant Admin Portal</div>
-  </div>
-  <div class="container">
-    <div class="warnignText" *ngIf="showWarning" style="margin-top: 10px;">
-      <span class="warning-message fa fa-warning"></span> <!-- Font Awesome warning icon -->
-      {{ warningText }}
+<header class="main-header">
+  <div class="container header-inner">
+    <!-- Logo -->
+    <div class="logo" routerLink="/">
+      <img src="../../assets/uploads/logo.png" alt="Forex" />
     </div>
-    <div class="login-form">
-      <h1 class="topic">Admin Login</h1>
+
+    <!-- Navigation -->
+    <nav class="nav-menu">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Home
+      </a>
+      <a routerLink="/auth/login" routerLinkActive="active">
+        Login
+      </a>
+    </nav>
+  </div>
+</header>
 
 
+<div class="auth-wrapper">
+  <!-- LEFT: LOGIN -->
+  <div class="auth-left">
+    <div class="auth-card">
 
+      <img class="logo" src="assets/uploads/logo.png" alt="ABC Restaurant" />
 
-      <form [formGroup]="loginForm" novalidate>
-        <style>
+      <h2>Welcome back</h2>
+      <p class="subtitle">Sign in to Admin Portal</p>
 
-          #identity {
-            height: 50px;
-          }
-          #password {
-            height: 50px;
-          }
-        </style>
+      <div class="warnignText" *ngIf="showWarning">
+        <i class="fa fa-warning"></i> {{ warningText }}
+      </div>
 
-        <div>
+      <form [formGroup]="loginForm">
 
-
-
+        <div class="field">
+          <label>Email Address</label>
           <input
-            id="identity"
             type="text"
             formControlName="identity"
-            placeholder="Username"
-            minlength="3"
-            required
-            style="background-color: #00000024;"
+            placeholder="Type email"
           />
-          <input
-            id="password"
-            formControlName="password"
-            type="{{ isPasswordVisible ? 'text' : 'password' }}"
-            minlength="6"
-            placeholder="Password"
-            required
-            style="background-color: #00000024;"
-          />
-          <div class="iconEye input-group-append">
-            <button
-              class="btnEye btn btn-outline-secondary"
-              type="button"
-              id="togglePassword"
-              (click)="togglePasswordVisibility()"
-            >
-              <i class="{{ isPasswordVisible ?  'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
-            </button>
-          </div>
         </div>
 
-        <button (click)="checkLogin()" class="login-btn" >Login</button>
+        <div class="field password-field">
+          <label>Password</label>
+          <input
+            [type]="isPasswordVisible ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Password"
+          />
+          <i
+            class="fa"
+            [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"
+            (click)="togglePasswordVisibility()"
+          ></i>
+        </div>
+
+        <div class="options">
+          <label>
+            <input type="checkbox" /> Remember me
+          </label>
+          <a href="#">Forgot password?</a>
+        </div>
+
+        <button class="login-btn" (click)="checkLogin()">Sign In</button>
+
       </form>
+
     </div>
   </div>
-  <div class="footer"></div>
+
+  <!-- RIGHT: IMAGE -->
+  <div class="auth-right"></div>
 </div>
+<footer class="main-footer py-4">
+  <div class="container">
+    <div class="footer-content text-center">
+      <div class="copyright">
+        &copy; Copyright <strong>Forex</strong>. All Rights Reserved
+      </div>
+    </div>
+  </div>
+</footer>
