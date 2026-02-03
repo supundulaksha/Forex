@@ -1,54 +1,81 @@
-
-
-
-<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
-  <div class="logo-container">
-    <div class="logo" (click)="toggleCollapse()" [ngClass]="collapsed ? 'left-to-right' : 'right-to-left'">
-      <img src="../../assets/brand/abc.png" />
+<div class="sidenav" [class.sidenav-expanded]="!collapsed">
+  <!-- Logo & Header -->
+  <div class="nav-header">
+    <div class="logo-container">
+      <div class="logo" (click)="toggleCollapse()">
+        <img src="../../assets/uploads/logo.png" alt="Logo" />
+      </div>
+      <div class="logo-text" *ngIf="!collapsed">
+        <span class="brand-name">GAIN ARC</span>
+      </div>
     </div>
-    <!-- <div class="logo-text" @fadeInOut *ngIf="collapsed">abc_restaurant</div> -->
-    <div class="btnClose" @rotate *ngIf="collapsed" (click)="closeSidenav()">
-      <i class="fa-solid fa-arrow-left"></i>
+
+    <button class="nav-toggle" (click)="toggleCollapse()" [attr.aria-label]="collapsed ? 'Expand menu' : 'Collapse menu'">
+      <i [class]="collapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></i>
+    </button>
+  </div>
+
+  <!-- User Profile -->
+  <div class="user-profile" *ngIf="!collapsed">
+    <div class="profile-image">
+      <i class="fas fa-user"></i>
+    </div>
+    <div class="profile-info">
+      <span class="user-name">Administrator</span>
+      <span class="user-role">Super Admin</span>
     </div>
   </div>
 
-  <div class="scrollwrap scrollwrap_delayed">
+  <!-- Navigation Menu -->
+  <div class="scrollwrap">
     <ul class="sidenav-nav">
       <li class="sidenav-nav-item" *ngFor="let data of navData">
-        <a class="sidenav-nav-link" (click)="handleClick(data)" *ngIf="data.items && data.label !== 'Dashboard' && data.items.length > 0">
-          <div class="sidenav-link-icon" (click)="toggleCollapse()">
-            <i [class]="data.icon"></i>
+        <!-- Menu Item with Children -->
+        <a class="sidenav-nav-link" *ngIf="data.items && data.items.length > 0"
+           (click)="handleClick(data)"
+           [class.active]="isActive(data)"
+           [class.expanded]="data.expanded">
+          <div class="sidenav-link-icon">
+            <i [class]="data.icon || 'fas fa-circle'"></i>
           </div>
-
-          <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed && data.label !== 'Dashboard'">
-            {{ data.label }}
-          </span>
-
-          <i *ngIf="data.items && collapsed && data.label !== 'Dashboard'" class="menu-collapse-icon" [ngClass]="
-              !data.expanded
-                ? 'fa-sharp fa-solid fa-angle-right'
-                : 'fa-sharp fa-solid fa-angle-down'
-            ">
+          <span class="sidenav-link-text" *ngIf="!collapsed">{{ data.label }}</span>
+          <i class="menu-collapse-icon" *ngIf="!collapsed && data.items && data.items.length > 0"
+            [class]="!data.expanded ? 'fas fa-chevron-right' : 'fas fa-chevron-down'">
           </i>
         </a>
-        <a class="sidenav-nav-link" *ngIf="!data.items || (data.items && data.items.length === 0)"
-          [routerLink]="[data.routerLink]" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+
+        <!-- Single Menu Item without Children -->
+        <a class="sidenav-nav-link" *ngIf="(!data.items || data.items.length === 0) && data.routerLink"
+          [routerLink]="data.routerLink"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: false }">
           <div class="sidenav-link-icon">
-            <i [class]="data.icon"></i>
+            <i [class]="data.icon || 'fas fa-circle'"></i>
           </div>
-          <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">{{data.label}}</span>
+          <span class="sidenav-link-text" *ngIf="!collapsed">{{ data.label }}</span>
         </a>
-        <div *ngIf="collapsed && data.items && data.items.length > 0 && data.label !== 'Dashboard'">
-          <app-sublevel-menu [collapsed]="collapsed" [multiple]="multiple" [expanded]="data.expanded" [data]="data">
-          </app-sublevel-menu>
-        </div>
-        <a class="sidenav-nav-link" *ngIf="data.label === 'Dashboard'" [routerLink]="getDashboardLink(data)">
-          <div class="sidenav-link-icon">
-            <i [class]="data.icon"></i>
-          </div>
-          <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">{{ data.label }}</span>
-        </a>
+
+        <!-- Submenu -->
+        <app-sublevel-menu
+          *ngIf="data.items && data.expanded && !collapsed"
+          [data]="data"
+          [collapsed]="collapsed"
+          [multiple]="multiple"
+          class="submenu-animation">
+        </app-sublevel-menu>
       </li>
     </ul>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="sidenav-footer" *ngIf="!collapsed">
+    <div class="system-status">
+      <div class="status-indicator online"></div>
+      <span>System Online</span>
+    </div>
+<button class="logout-btn" [routerLink]="['/auth/login']">
+  <i class="fas fa-sign-out-alt"></i>
+  <span>Logout</span>
+</button>
   </div>
 </div>

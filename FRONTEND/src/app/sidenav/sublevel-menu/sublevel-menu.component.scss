@@ -1,158 +1,143 @@
-.sidenav {
-    background: #263238;
-    transition: all .5s ease;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    width: 5rem;
-    height: 100vh;
-    box-shadow: 0.063rem 0 1.25rem #8690a3;
+.submenu-container {
+  // margin: 0.25rem 0 0.5rem 2.75rem;
+  padding-left: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  animation: slideFade 0.25s ease-out;
+}
 
-    .logo-container {
-        display: flex;
-        align-items: center;
-        padding: 0.938rem 0.938rem 0 0.938rem;
-        width: 100%;
+.submenu-nested {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  border-left-color: rgba(255, 255, 255, 0.08);
+}
 
-        .logo {
-            background: #fff;
-            text-align: center;
-            width: 3rem;
-            min-width: 3rem;
-            border-radius: 0.313rem;
-            padding: 0.313rem;
-            font-size: 24px;
-            font-weight: 900;
-            cursor: pointer;
-            border: none;
-        }
+.submenu-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.55rem 0.75rem;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 
-        .logo-text {
-            margin-left: 1.5rem;
-            font-size: 24px;
-            font-weight: 700;
-            color: #fff;
-        }
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    padding-left: 1rem;
+    transform: translateX(2px);
 
-        .btn-close {
-            margin-left: auto;
-            cursor:pointer;
-            width: 2rem;
-            height:2rem;
-            border-radius: 50%;
-            background-color: transparent;
-            border: none;
-            
-            .fa-arrow-right{
-                color: #fff;
-                font-size: 24px;
-            }
-
-        }
+    .submenu-icon {
+      color: #667eea;
+      transform: scale(1.2);
     }
-}
-.sidenav-collapsed{
-    width: 16.5625rem;
+  }
 
-}
-.sidenav-nav {
-    list-style: none;
-    padding: 0.938rem;
-    margin: 0;
+  &.active {
+    color: #fff;
+    background: linear-gradient(
+      90deg,
+      rgba(102, 126, 234, 0.25),
+      rgba(118, 75, 162, 0.15)
+    );
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #667eea;
+      box-shadow: 0 0 8px #667eea;
+      animation: pulseDot 2s infinite;
+    }
+
+    .submenu-icon {
+      color: #667eea;
+      transform: scale(1.2);
+    }
+  }
+
+  &.has-children {
+    .submenu-chevron {
+      margin-left: auto;
+      font-size: 10px;
+      opacity: 0.7;
+      transition: transform 0.3s ease;
+    }
+
+    &.expanded .submenu-chevron {
+      transform: rotate(90deg);
+    }
+  }
+
+  .submenu-icon-wrapper {
+    width: 16px;
+    height: 16px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    height: calc(100% - 3.65rem);
-    cursor:pointer;
-    .sidenav-nav-item {
-        width: 100%;
-        margin-bottom: 0.625rem;
-        
-        .sidenav-nav-link{
-            display: flex;
-            align-items: center;
-            height: 3rem;
-            color: #f3f3f3;
-            text-decoration: none;
-            transition: color .3s ease;
-            border-radius: 0.625em; 
-            .sidenav-link-icon {
-                font-size: 22px;
-                width: 2rem;
-                min-width: 2rem;
-                margin: 0 0.5rem;
-                text-align: center;
-            }
-            .sidenav-link-text{
-                margin-left: 1.5rem;
+    justify-content: center;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
 
-            }
-        }
-        .sidenav-nav-link:hover{
-            background-color: #fff;
-            color: #000;
+  .submenu-icon {
+    font-size: 6px;
+    color: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+  }
 
-            .menu-collapse-icon{
-                color: #000;
-            }
-        }
-    }
-   
-}
+  .submenu-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+  }
 
-.active{
-    background-color: #fff;
-
-    .menu-collapse-icon,
-    .sidenav-link-icon,
-    .sidenav-link-text{
-        color: #000;
-    }
-}
-.active-sublevel{
-    color:#f3f3f3 !important;
-
-   
-}
-
-.menu-collapse-icon{
-    
-    font-size: 18px;
-    width: 2rem;
-    min-width: 2rem;
-    margin: auto 0.5rem auto auto;
+  .submenu-badge {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 8px;
+    margin-left: 0.5rem;
+    min-width: 18px;
     text-align: center;
-    color: #f3f3f3;
+    display: none;
+  }
 }
-.sublevel-nav{
-    list-style: none;
-    margin-left: 2px;
 
-    .sublevel-nav-item{
-        .sublevel-nav-link{
-            display: flex;
-            align-items: center;
-            height: 3rem;
-            color: #898989;
-            text-decoration: none;
-            border-radius: 0.625rem;
-            transition: all .3s ease;
+/* Animations */
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-            .sublevel-link-icon{
-                font-size: 4px;
-                width: 2rem;
-                min-width: 2rem;
-                margin: 0 0.5rem;
-                text-align: center;
-
-            }
-            .sublevel-link-text{
-                margin-left: 0.8rem;
-            }
-        }
-        .sublevel-nav-link:hover{
-            color: #f3f3f3;
-        }
-    }
-
+@keyframes pulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-50%) scale(1.1);
+  }
 }
